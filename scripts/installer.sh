@@ -145,4 +145,8 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 # Launch JavaPerks
 
-# . /root/javaperks-aws-k8s/scripts/05_launch_javaperks.sh
+. /root/javaperks-aws-k8s/scripts/05_launch_javaperks.sh
+
+# Final data load
+
+. /root/javaperks-aws-k8s/scripts/06_postpopulate_data.sh
