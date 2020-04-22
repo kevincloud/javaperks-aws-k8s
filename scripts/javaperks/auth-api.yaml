@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-api
+  labels:
+    app: auth-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-api
+  template:
+    metadata:
+      labels:
+        app: auth-api
+      annotations:
+        "consul.hashicorp.com/service-name": "auth-api"
+        # "vault.hashicorp.com/"
+    spec:
+      serviceAccountName: vault-auth
+      containers:
+      - name: auth-api
+        image: "jubican/javaperks-auth-api:1.1.6"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5825
+        env:
+          - name: VAULT_ADDR
+            value: "http://hc-vault:8200"
+          - name: LDAP_HOST
+            value: "openldap"
+          - name: LDAP_ADMIN
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: ldap-admin-user
+          - name: LDAP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: env-secret-values
+                key: ldap-admin-pass
+        # livenessProbe:
+        #   httpGet:
+        #     path: /_health_check
+        #     port: 5825
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 30
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 100m
+            memory: 100Mi

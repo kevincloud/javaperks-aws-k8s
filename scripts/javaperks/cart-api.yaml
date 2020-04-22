@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-api
+  labels:
+    app: cart-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart-api
+  template:
+    metadata:
+      labels:
+        app: cart-api
+      annotations:
+        "consul.hashicorp.com/service-name": "cart-api"
+    spec:
+      containers:
+      - name: cart-api
+        image: "jubican/javaperks-cart-api:1.1.0"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5823
+        env:
+          - name: AWS_ACCESS_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: aws-access-key
+          - name: AWS_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: env-secret-values
+                key: aws-secret-key
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: aws-region
+          - name: DDB_TABLE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: table-cart
+        # livenessProbe:
+        #   httpGet:
+        #     path: /_health_check
+        #     port: 5822
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 30
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 100m
+            memory: 100Mi

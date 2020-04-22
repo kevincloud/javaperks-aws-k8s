@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api
+  labels:
+    app: order-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-api
+  template:
+    metadata:
+      labels:
+        app: order-api
+      annotations:
+        "consul.hashicorp.com/service-name": "order-api"
+    spec:
+      containers:
+      - name: order-api
+        image: "jubican/javaperks-order-api:1.1.4"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5826
+        env:
+          - name: AWS_ACCESS_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: aws-access-key
+          - name: AWS_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: env-secret-values
+                key: aws-secret-key
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: aws-region
+          - name: DDB_TABLE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: table-order
+        # livenessProbe:
+        #   httpGet:
+        #     path: /_health_check
+        #     port: 5822
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 30
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 100m
+            memory: 100Mi

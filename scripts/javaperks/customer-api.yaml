@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-api
+  labels:
+    app: customer-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-api
+  template:
+    metadata:
+      labels:
+        app: customer-api
+      annotations:
+        "consul.hashicorp.com/service-name": "customer-api"
+        # "vault.hashicorp.com/"
+    spec:
+      serviceAccountName: vault-auth
+      containers:
+      - name: customer-api
+        image: "jubican/javaperks-customer-api:0.2.7"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5822
+        env:
+          - name: VAULT_ADDR
+            value: "http://hc-vault:8200"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /_health_check
+        #     port: 5822
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 30
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 100m
+            memory: 100Mi

@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-store
+  labels:
+    app: online-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: online-store
+  template:
+    metadata:
+      labels:
+        app: online-store
+      annotations:
+        "consul.hashicorp.com/service-name": "online-store"
+    spec:
+      serviceAccountName: vault-auth
+      containers:
+      - name: online-store
+        image: "jubican/javaperks-online-store:1.1.2"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5826
+        env:
+          - name: AWS_ACCESS_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: aws-access-key
+          - name: AWS_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: env-secret-values
+                key: aws-secret-key
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: aws-region
+          - name: S3_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: env-values
+                key: s3-bucket
+          - name: VAULT_ADDR
+            value: http://hc-vault:8200
+          - name: JPAPI_AUTH_HOST
+            value: http://auth-api:5825
+          - name: JPAPI_PROD_HOST
+            value: http://product-api
+          - name: JPAPI_CUST_HOST
+            value: http://customer-api:5822
+          - name: JPAPI_CART_HOST
+            value: http://cart-api
+          - name: JPAPI_ORDR_HOST
+            value: http://order-api
+        # livenessProbe:
+        #   httpGet:
+        #     path: /_health_check
+        #     port: 5822
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 30
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 100m
+            memory: 100Mi

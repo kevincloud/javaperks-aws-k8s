@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openldap
+  labels:
+    app: openldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openldap
+  template:
+    metadata:
+      labels:
+        app: openldap
+      annotations:
+        "consul.hashicorp.com/service-name": "openldap"
+    spec:
+      containers:
+      - name: openldap
+        image: "osixia/openldap:1.3.0"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 389
+        env:
+          - name: LDAP_HOSTNAME
+            value: ldap.javaperks.local
+          - name: LDAP_DOMAIN
+            value: javaperks.local
+          - name: LDAP_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: env-secret-values
+                key: ldap-admin-pass
+          - name: LDAP_CONFIG_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: env-secret-values
+                key: ldap-admin-pass
+        # livenessProbe:
+        #   httpGet:
+        #     path: /_health_check
+        #     port: 5822
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 30
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 100m
+            memory: 100Mi

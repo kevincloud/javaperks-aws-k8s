@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ldap-front-end
+  labels:
+    app: openldap
+  annotations:
+    "consul.hashicorp.com/service-name": "ldap-front-end"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 389
+      targetPort: 389
+      protocol: TCP
+  selector:
+    app: openldap

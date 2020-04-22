@@ -1,0 +1,165 @@
+#!/bin/bash
+
+########################
+# EDIT THESE VARIABLES #
+########################
+
+BEARER_TOKEN="YOUR_TFE_API_TOKEN"
+AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID"
+AWS_SECRET_KEY="YOUR_SECRET_KEY_ID"
+AWS_REGION="us-east-1"
+AWS_AZS='[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\"]'
+AWS_KMS_KEY_ID="XXX"
+KEY_PAIR="YOUR_SSH_KEY_PAIR"
+MYSQL_USER="root"
+MYSQL_PASS="MySecretPassword"
+MYSQL_DATABASE="javaperks"
+INSTANCE_SIZE="t3.micro"
+NUM_WORKER_NODES="6"
+CONSUL_LICENSE_KEY="XXX"
+VAULT_LICENSE_KEY="XXX"
+UNIT_PREFIX="jpp"
+LDAP_PASS="MySecretPassword"
+GIT_BRANCH="master"
+OWNER_EMAIL="YOUR_EMAIL_ADDRESS"
+VAULT_DL_URL="https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_linux_amd64.zip"
+ORG_NAME="YOUR_TFE_ORGANIZATION_NAME"
+WORKSPACE_NAME="YOUR_TFE_WORKSPACE_NAME"
+
+#########################
+# END EDITING VARIABLES #
+#########################
+
+# Get the workspace id from the workspace name
+WORKSPACE_ID=$(curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    https://app.terraform.io/api/v2/organizations/${ORG_NAME}/workspaces/${WORKSPACE_NAME} | jq -r .data.id)
+
+# Create all variables for the specified workspace
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "aws_access_key", "value": "'${AWS_ACCESS_KEY}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "aws_secret_key", "value": "'${AWS_SECRET_KEY}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "aws_region", "value": "'${AWS_REGION}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "aws_azs", "value": "'${AWS_AZS}'", "description": "", "category": "terraform", "hcl": true, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "aws_kms_key_id", "value": "'${AWS_KMS_KEY_ID}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "key_pair", "value": "'${KEY_PAIR}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "mysql_user", "value": "'${MYSQL_USER}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "mysql_pass", "value": "'${MYSQL_PASS}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "mysql_database", "value": "'${MYSQL_DATABASE}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "instance_size", "value": "'${INSTANCE_SIZE}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "num_worker_nodes", "value": "'${NUM_WORKER_NODES}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "consul_license_key", "value": "'${CONSUL_LICENSE_KEY}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "vault_license_key", "value": "'${VAULT_LICENSE_KEY}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "unit_prefix", "value": "'${UNIT_PREFIX}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "ldap_pass", "value": "'${LDAP_PASS}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "git_branch", "value": "'${GIT_BRANCH}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "owner_email", "value": "'${OWNER_EMAIL}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "vault_dl_url", "value": "'${VAULT_DL_URL}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
