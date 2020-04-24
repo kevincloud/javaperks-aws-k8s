@@ -23,6 +23,7 @@ LDAP_PASS="MySecretPassword"
 GIT_BRANCH="master"
 OWNER_EMAIL="YOUR_EMAIL_ADDRESS"
 VAULT_DL_URL="https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_linux_amd64.zip"
+ZONE_ID=""
 ORG_NAME="YOUR_TFE_ORGANIZATION_NAME"
 WORKSPACE_NAME="YOUR_TFE_WORKSPACE_NAME"
 
@@ -162,4 +163,11 @@ curl -s \
     --header "Content-Type: application/vnd.api+json" \
     --request POST \
     --data '{ "data": { "type": "vars", "attributes": { "key": "vault_dl_url", "value": "'${VAULT_DL_URL}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "zoneid", "value": "'${ZONE_ID}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
     https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars

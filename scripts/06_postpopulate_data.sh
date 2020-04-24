@@ -137,6 +137,8 @@ member: cn=Larry Olsen,ou=Customers,dc=javaperks,dc=local
 EOF
 
 # Wait for ldap front-end to be ready
+export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY}"
+export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_KEY}"
 export LDAP_ADDR=$(kubectl get service ldap-front-end -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 export LBNAME=$(echo $LDAP_ADDR | awk -F"-" '{print $1}')
 while [[ ! -z $(aws elb describe-instance-health --load-balancer-name $LBNAME --region=us-east-1 | jq -r .InstanceStates[].State | sed -n '/InService/ !p') ]]; do

@@ -102,3 +102,9 @@ variable "vault_dl_url" {
     type = string
     description = "The URL to download Vault from"
 }
+
+variable "zoneid" {
+    type = string
+    description = "Zone ID for Route 53"
+    default = ""
+}
