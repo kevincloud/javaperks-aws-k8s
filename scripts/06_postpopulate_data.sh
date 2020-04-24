@@ -137,6 +137,8 @@ member: cn=Larry Olsen,ou=Customers,dc=javaperks,dc=local
 EOF
 
 # Wait for ldap front-end to be ready
+echo "Waiting for the ldap load balancer to come online. This could take several minutes..."
+sleep 10
 export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY}"
 export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_KEY}"
 export LDAP_ADDR=$(kubectl get service ldap-front-end -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
