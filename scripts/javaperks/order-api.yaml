@@ -21,7 +21,7 @@ spec:
         image: "jubican/javaperks-order-api:1.1.4"
         imagePullPolicy: Always
         ports:
-        - containerPort: 5826
+        - containerPort: 80
         env:
           - name: AWS_ACCESS_KEY
             valueFrom:

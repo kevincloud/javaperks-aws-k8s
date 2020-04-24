@@ -150,3 +150,5 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 # Final data load
 
 . /root/javaperks-aws-k8s/scripts/06_postpopulate_data.sh
+
+echo "All Done!!!"

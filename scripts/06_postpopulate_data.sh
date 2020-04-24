@@ -2,7 +2,6 @@
 
 # Add LDAP Data
 mkdir /root/ldap
-export LDAP_ADDR=$(kubectl get service ldap-front-end -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
 # add customers group
 sudo bash -c "cat >/root/ldap/customers.ldif" <<EOF
@@ -136,6 +135,13 @@ member: cn=Matt Grey,ou=Customers,dc=javaperks,dc=local
 member: cn=Howard Turner,ou=Customers,dc=javaperks,dc=local
 member: cn=Larry Olsen,ou=Customers,dc=javaperks,dc=local
 EOF
+
+# Wait for ldap front-end to be ready
+export LDAP_ADDR=$(kubectl get service ldap-front-end -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+export LBNAME=$(echo $LDAP_ADDR | awk -F"-" '{print $1}')
+while [[ ! -z $(aws elb describe-instance-health --load-balancer-name $LBNAME --region=us-east-1 | jq -r .InstanceStates[].State | sed -n '/InService/ !p') ]]; do
+    sleep 3
+done
 
 # Add LDAP data
 # ldapadd -f /root/ldap/customers.ldif -h "a36663723e7cf45639d8dc3b3a750045-1950383366.us-east-1.elb.amazonaws.com" -D "cn=admin,dc=javaperks,dc=local" -w SuperFuzz1

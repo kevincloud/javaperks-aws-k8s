@@ -204,7 +204,7 @@ curl -s \
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request PUT \
-    --data '{ "policy": "path \"usercreds/*\" {\n  capabilities = [ \"read\", \"create\", \"delete\", \"update\", \"list\" ]\n }\n\n path \"transit/*\" {\n  capabilities = [ \"read\", \"list\" ]\n }\n" }' \
+    --data '{ "policy": "path \"usercreds/*\" {\n  capabilities = [ \"read\", \"create\", \"delete\", \"update\", \"list\" ]\n }\n\n path \"transit/*\" {\n  capabilities = [ \"read\", \"create\", \"delete\", \"update\", \"list\" ]\n }\n" }' \
     $VAULT_ADDR/v1/sys/policy/storecreds
 
 # Setup Kubernetes
@@ -270,7 +270,7 @@ curl -s \
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
-    --data "{\"data\": { \"address\": \"customer-db.service.$AWS_REGION.consul\", \"database\": \"$MYSQL_DB\", \"username\": \"$MYSQL_USER\", \"password\": \"$MYSQL_PASS\" } }" \
+    --data "{\"data\": { \"address\": \"$MYSQL_HOST\", \"database\": \"$MYSQL_DB\", \"username\": \"$MYSQL_USER\", \"password\": \"$MYSQL_PASS\" } }" \
     $VAULT_ADDR/v1/secret/data/dbhost
 
 echo "Enable transit engine..."
@@ -301,9 +301,9 @@ curl -s \
 
 export VAULT_ADDR="http://$(kubectl get service hc-vault-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'):8200"
 
-curl -sfLo "vault.zip" "${VAULT_DL_URL}"
-sudo unzip vault.zip -d /usr/local/bin/
-rm -rf vault.zip
+curl -sfLo "/root/vault.zip" "${VAULT_DL_URL}"
+sudo unzip /root/vault.zip -d /usr/local/bin/
+rm -rf /root/vault.zip
 
 echo "Vault installation complete."
 

@@ -242,12 +242,12 @@ kubectl create configmap env-values \
     --from-literal=mysql-user="${MYSQL_USER}" \
     --from-literal=mysql-db="${MYSQL_DB}" \
     --from-literal=aws-access-key="${AWS_ACCESS_KEY}" \
-    --from-literal=aws-region="${REGION}" \
+    --from-literal=aws-region="${AWS_REGION}" \
     --from-literal=s3-bucket="${S3_BUCKET}" \
     --from-literal=table-product="${TABLE_PRODUCT}" \
     --from-literal=table-cart="${TABLE_CART}" \
     --from-literal=table-order="${TABLE_ORDER}" \
-    --from-literal=ldap-admin-user="${LDAP_ADMIN_PASS}"
+    --from-literal=ldap-admin-user="${LDAP_ADMIN_USER}"
 
 kubectl create secret generic env-secret-values \
     --from-literal=mysql-pass="${MYSQL_PASS}" \

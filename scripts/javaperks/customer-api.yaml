@@ -20,7 +20,7 @@ spec:
       serviceAccountName: vault-auth
       containers:
       - name: customer-api
-        image: "jubican/javaperks-customer-api:0.2.7"
+        image: "jubican/javaperks-customer-api:0.2.8"
         imagePullPolicy: Always
         ports:
         - containerPort: 5822

@@ -21,7 +21,7 @@ spec:
         image: "jubican/javaperks-product-api:1.1.4"
         imagePullPolicy: Always
         ports:
-        - containerPort: 5821
+        - containerPort: 80
         env:
           - name: AWS_ACCESS_KEY
             valueFrom:
@@ -43,7 +43,7 @@ spec:
               configMapKeyRef:
                 name: env-values
                 key: table-product
-  # livenessProbe:
+        # livenessProbe:
         #   httpGet:
         #     path: /_health_check
         #     port: 5822
