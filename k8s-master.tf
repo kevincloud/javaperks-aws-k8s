@@ -24,6 +24,7 @@ resource "aws_instance" "jp-k8s-master" {
         BRANCH_NAME = var.git_branch
         LDAP_ADMIN_PASS = var.ldap_pass
         VAULT_DL_URL = var.vault_dl_url
+        ZONE_ID = var.zoneid
     })
 
     tags = {
