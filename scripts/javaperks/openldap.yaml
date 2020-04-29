@@ -23,6 +23,8 @@ spec:
         ports:
         - containerPort: 389
         env:
+          - name: HOSTNAME
+            value: "127.0.0.1"
           - name: LDAP_HOSTNAME
             value: ldap.javaperks.local
           - name: LDAP_DOMAIN

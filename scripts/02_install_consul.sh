@@ -31,10 +31,10 @@ connectInject:
   centralConfig:
     enabled: true
     defaultProtocol: 'http'
-    proxyDefaults: |
-      {
-        "envoy_dogstatsd_url": "udp://127.0.0.1:9125"
-      }
+  #   proxyDefaults: |
+  #     {
+  #       "envoy_dogstatsd_url": "udp://127.0.0.1:9125"
+  #     }
 EOT
 
 helm install -f helm-consul-values.yaml hc-consul ./consul-helm

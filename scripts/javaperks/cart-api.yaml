@@ -18,11 +18,13 @@ spec:
     spec:
       containers:
       - name: cart-api
-        image: "jubican/javaperks-cart-api:1.1.0"
+        image: "jubican/javaperks-cart-api:1.1.1"
         imagePullPolicy: Always
         ports:
-        - containerPort: 5823
+        - containerPort: 5821
         env:
+          - name: LOCALHOST_ONLY
+            value: "true"
           - name: AWS_ACCESS_KEY
             valueFrom:
               configMapKeyRef:

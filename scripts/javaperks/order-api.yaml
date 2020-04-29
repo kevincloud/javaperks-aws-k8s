@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
       - name: order-api
-        image: "jubican/javaperks-order-api:1.1.4"
+        image: "jubican/javaperks-order-api:1.1.5"
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 5824
         env:
           - name: AWS_ACCESS_KEY
             valueFrom:

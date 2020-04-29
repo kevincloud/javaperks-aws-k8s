@@ -15,18 +15,21 @@ spec:
         app: customer-api
       annotations:
         "consul.hashicorp.com/service-name": "customer-api"
+        "consul.hashicorp.com/connect-service-upstreams": "hc-vault:8200"
         # "vault.hashicorp.com/"
     spec:
       serviceAccountName: vault-auth
       containers:
       - name: customer-api
-        image: "jubican/javaperks-customer-api:0.2.8"
+        image: "jubican/javaperks-customer-api:0.2.9"
         imagePullPolicy: Always
         ports:
         - containerPort: 5822
         env:
+          - name: LOCALHOST_ONLY
+            value: "true"
           - name: VAULT_ADDR
-            value: "http://hc-vault:8200"
+            value: "http://localhost:8200"
         # livenessProbe:
         #   httpGet:
         #     path: /_health_check
