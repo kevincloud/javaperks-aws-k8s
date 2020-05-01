@@ -60,7 +60,7 @@ kubectl exec hc-consul-consul-server-0 -- curl \
 
 kubectl exec hc-consul-consul-server-0 -- curl \
     --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"hc-vault\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
+    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"vault\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
     http://127.0.0.1:8500/v1/connect/intentions
 
 kubectl exec hc-consul-consul-server-0 -- curl \
@@ -95,16 +95,15 @@ kubectl exec hc-consul-consul-server-0 -- curl \
 
 kubectl exec hc-consul-consul-server-0 -- curl \
     --request POST \
-    --data "{ \"SourceName\": \"customer-api\", \"DestinationName\": \"hc-vault\", \"SourceType\": \"consul\", \"Action\": \"allow\" }" \
+    --data "{ \"SourceName\": \"customer-api\", \"DestinationName\": \"vault\", \"SourceType\": \"consul\", \"Action\": \"allow\" }" \
     http://127.0.0.1:8500/v1/connect/intentions
 
 kubectl exec hc-consul-consul-server-0 -- curl \
     --request POST \
-    --data "{ \"SourceName\": \"online-store\", \"DestinationName\": \"hc-vault\", \"SourceType\": \"consul\", \"Action\": \"allow\" }" \
+    --data "{ \"SourceName\": \"online-store\", \"DestinationName\": \"vault\", \"SourceType\": \"consul\", \"Action\": \"allow\" }" \
     http://127.0.0.1:8500/v1/connect/intentions
 
 kubectl exec hc-consul-consul-server-0 -- curl \
     --request POST \
-    --data "{ \"SourceName\": \"auth-api\", \"DestinationName\": \"hc-vault\", \"SourceType\": \"consul\", \"Action\": \"allow\" }" \
+    --data "{ \"SourceName\": \"auth-api\", \"DestinationName\": \"vault\", \"SourceType\": \"consul\", \"Action\": \"allow\" }" \
     http://127.0.0.1:8500/v1/connect/intentions
-

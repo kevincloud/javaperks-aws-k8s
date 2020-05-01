@@ -15,7 +15,7 @@ spec:
         app: customer-api
       annotations:
         "consul.hashicorp.com/service-name": "customer-api"
-        "consul.hashicorp.com/connect-service-upstreams": "hc-vault:8200"
+        "consul.hashicorp.com/connect-service-upstreams": "vault:8200"
         # "vault.hashicorp.com/"
     spec:
       serviceAccountName: vault-auth

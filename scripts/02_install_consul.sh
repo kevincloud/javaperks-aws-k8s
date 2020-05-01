@@ -7,10 +7,17 @@ sudo bash -c "cat >/root/helm-consul-values.yaml" <<EOT
 # helm-consul-values.yaml
 global:
   datacenter: $AWS_REGION
+  acls:
+    bootstrapToken:
+      secretName: env-secret-values
+      secretKey: consul-token
 
 server:
   replicas: 3
   bootstrapExpect: 3
+  enterpriseLicense:
+    secretName: env-secret-values
+    secretKey: consul-license
   disruptionBudget:
     enabled: true
     maxUnavailable: 0

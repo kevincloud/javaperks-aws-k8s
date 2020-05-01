@@ -15,7 +15,7 @@ spec:
         app: auth-api
       annotations:
         "consul.hashicorp.com/service-name": "auth-api"
-        "consul.hashicorp.com/connect-service-upstreams": "hc-vault:8200,openldap:389"
+        "consul.hashicorp.com/connect-service-upstreams": "vault:8200,openldap:389"
     spec:
       serviceAccountName: vault-auth
       containers:

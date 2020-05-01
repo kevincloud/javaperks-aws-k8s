@@ -87,6 +87,7 @@ echo "Configuring Vault..."
 #     $VAULT_ADDR/v1/sys/audit/main-audit
 
 # Enable LDAP authentication
+echo "Enable LDAP auth"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
@@ -94,6 +95,7 @@ curl -s \
     $VAULT_ADDR/v1/sys/auth/ldap
 
 # Enable dynamic database creds
+echo "Enable dynamic secrets for custdbcreds"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
@@ -101,12 +103,14 @@ curl -s \
     $VAULT_ADDR/v1/sys/mounts/custdbcreds
 
 # Configure connection
+echo "Configure custdbcreds"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
     --data "{ \"plugin_name\": \"mysql-database-plugin\", \"allowed_roles\": \"cust-api-role\", \"connection_url\": \"{{username}}:{{password}}@tcp($MYSQL_HOST:3306)/\", \"username\": \"$MYSQL_USER\", \"password\": \"$MYSQL_PASS\" }" \
     $VAULT_ADDR/v1/custdbcreds/config/custapidb
 
+echo "Add role for custdbcreds"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
@@ -114,12 +118,14 @@ curl -s \
     $VAULT_ADDR/v1/custdbcreds/roles/cust-api-role
 
 # Enable secrets mount point for kv2
+echo "Enable KV for usercreds"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
     --data '{"type": "kv", "options": { "version": "2" } }' \
     $VAULT_ADDR/v1/sys/mounts/usercreds
 
+echo "Enable KV for secret"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
@@ -127,7 +133,7 @@ curl -s \
     $VAULT_ADDR/v1/sys/mounts/secret
 
 # add usernames and passwords
-
+echo "Add users"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
@@ -189,18 +195,21 @@ curl -s \
     $VAULT_ADDR/v1/usercreds/data/olsendog1979@example.com
 
 # Add policies
+echo "Add dbcreds policy"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request PUT \
     --data '{ "policy": "path \"secret/data/dbhost\" {\n  capabilities = [\"read\"]\n}\n\npath \"custdbcreds/creds/*\" {\n  capabilities = [\"read\"]\n}\n" }' \
     $VAULT_ADDR/v1/sys/policy/dbcreds
 
+echo "Add logincreds policy"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request PUT \
     --data '{ "policy": "path \"usercreds/data/*\" {\n  capabilities = [\"read\"]\n }\n" }' \
     $VAULT_ADDR/v1/sys/policy/logincreds
 
+echo "Add storecreds policy"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request PUT \
@@ -236,18 +245,21 @@ export VAULT_SA_NAME=$(kubectl get sa vault-auth -o jsonpath="{.secrets[*]['name
 export SA_JWT_TOKEN=$(kubectl get secret $VAULT_SA_NAME -o jsonpath="{.data.token}" | base64 --decode)
 export SA_CA_CRT=$(kubectl get secret $VAULT_SA_NAME -o jsonpath="{.data['ca\.crt']}" | base64 --decode | sed ':a;N;$!ba;s/\n/\\n/g')
 
+echo "Enable Kubernetes auth"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
     --data '{ "type": "kubernetes" }' \
     $VAULT_ADDR/v1/sys/auth/kubernetes
 
+echo "Configure Kubernetes auth"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
     --data "{ \"kubernetes_host\": \"https://$CLIENT_IP:6443\", \"kubernetes_ca_cert\": \"$SA_CA_CRT\", \"token_reviewer_jwt\": \"$SA_JWT_TOKEN\" }" \
     $VAULT_ADDR/v1/auth/kubernetes/config
 
+echo "Create Kubernetes role"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
@@ -255,18 +267,21 @@ curl -s \
     $VAULT_ADDR/v1/auth/kubernetes/role/cust-api
 
 # Additional configs
+echo "Add AWS Credentials"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
     --data "{\"data\": { \"aws_access_key\": \"$AWS_ACCESS_KEY\", \"aws_secret_key\": \"$AWS_SECRET_KEY\", \"aws_region\": \"$AWS_REGION\" } }" \
     $VAULT_ADDR/v1/secret/data/aws
 
+echo "Add root token"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
     --data "{\"data\": { \"token\": \"$VAULT_TOKEN\" } }" \
     $VAULT_ADDR/v1/secret/data/roottoken
 
+echo "Add database credentials"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
@@ -302,7 +317,8 @@ curl -s \
 export VAULT_ADDR="http://$(kubectl get service hc-vault-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'):8200"
 
 curl -sfLo "/root/vault.zip" "${VAULT_DL_URL}"
-sudo unzip /root/vault.zip -d /usr/local/bin/
+unzip /root/vault.zip -d /usr/local/bin/
+sleep 3
 rm -rf /root/vault.zip
 
 echo "Vault installation complete."

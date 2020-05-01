@@ -15,7 +15,7 @@ spec:
         app: online-store
       annotations:
         "consul.hashicorp.com/service-name": "online-store"
-        "consul.hashicorp.com/connect-service-upstreams": "customer-api:5822,auth-api:5825,hc-vault:8200,product-api:5823,order-api:5824,cart-api:5821"
+        "consul.hashicorp.com/connect-service-upstreams": "customer-api:5822,auth-api:5825,vault:8200,product-api:5823,order-api:5824,cart-api:5821"
     spec:
       serviceAccountName: vault-auth
       containers:
@@ -52,9 +52,9 @@ spec:
           - name: JPAPI_PROD_HOST
             value: http://localhost:5823
           - name: JPAPI_CUST_HOST
-            value: http://locahost:5822
+            value: http://localhost:5822
           - name: JPAPI_CART_HOST
-            value: http://locahost:5821
+            value: http://localhost:5821
           - name: JPAPI_ORDR_HOST
             value: http://localhost:5824
         # livenessProbe:
