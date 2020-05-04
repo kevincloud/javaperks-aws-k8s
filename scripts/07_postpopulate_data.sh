@@ -147,6 +147,8 @@ while [[ ! -z $(aws elb describe-instance-health --load-balancer-name $LBNAME --
     sleep 3
 done
 
+sleep 10
+
 # Add LDAP data
 # ldapadd -f /root/ldap/customers.ldif -h "a36663723e7cf45639d8dc3b3a750045-1950383366.us-east-1.elb.amazonaws.com" -D "cn=admin,dc=javaperks,dc=local" -w SuperFuzz1
 ldapadd -f /root/ldap/customers.ldif -h "${LDAP_ADDR}" -D "${LDAP_ADMIN_USER}" -w ${LDAP_ADMIN_PASS}
