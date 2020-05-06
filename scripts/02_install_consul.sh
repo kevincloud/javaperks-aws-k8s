@@ -9,9 +9,7 @@ global:
   image: "hashicorp/consul-enterprise"
   datacenter: $AWS_REGION
   acls:
-    bootstrapToken:
-      secretName: env-secret-values
-      secretKey: consul-token
+    manageSystemACLs: true
 
 server:
   replicas: 3
