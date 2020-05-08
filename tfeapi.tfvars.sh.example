@@ -17,6 +17,7 @@ MYSQL_DATABASE="javaperks"
 INSTANCE_SIZE="t3.micro"
 NUM_WORKER_NODES="6"
 CONSUL_LICENSE_KEY="XXX"
+CONSUL_TOKEN="mytoken"
 VAULT_LICENSE_KEY="XXX"
 UNIT_PREFIX="jpp"
 LDAP_PASS="MySecretPassword"
@@ -121,6 +122,13 @@ curl -s \
     --header "Content-Type: application/vnd.api+json" \
     --request POST \
     --data '{ "data": { "type": "vars", "attributes": { "key": "consul_license_key", "value": "'${CONSUL_LICENSE_KEY}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
+    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
+
+curl -s \
+    --header "Authorization: Bearer ${BEARER_TOKEN}" \
+    --header "Content-Type: application/vnd.api+json" \
+    --request POST \
+    --data '{ "data": { "type": "vars", "attributes": { "key": "consul_token", "value": "'${CONSUL_TOKEN}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
     https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
 
 curl -s \

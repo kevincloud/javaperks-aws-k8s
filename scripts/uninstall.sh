@@ -30,5 +30,3 @@ kubectl delete pvc data-hc-vault-0
 # Delete maps
 kubectl delete configmap env-values
 kubectl delete secret env-secret-values
-
-#

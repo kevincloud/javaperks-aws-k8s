@@ -94,6 +94,7 @@ export AWS_REGION="${REGION}"
 export S3_BUCKET="${S3_BUCKET}"
 export VAULT_LICENSE="${VAULT_LICENSE}"
 export CONSUL_LICENSE="${CONSUL_LICENSE}"
+export CONSUL_TOKEN="${CONSUL_TOKEN}"
 export TABLE_PRODUCT="${TABLE_PRODUCT}"
 export TABLE_CART="${TABLE_CART}"
 export TABLE_ORDER="${TABLE_ORDER}"
@@ -161,5 +162,3 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 /root/javaperks-aws-k8s/scripts/08_dns_records.sh
 
 echo "All Done!!!"
-
-#
