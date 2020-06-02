@@ -30,37 +30,7 @@ kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/front-end.yaml
 # Create intentions
 kubectl exec hc-consul-consul-server-0 -- curl \
     --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"auth-api\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
-    http://127.0.0.1:8500/v1/connect/intentions
-
-kubectl exec hc-consul-consul-server-0 -- curl \
-    --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"cart-api\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
-    http://127.0.0.1:8500/v1/connect/intentions
-
-kubectl exec hc-consul-consul-server-0 -- curl \
-    --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"customer-api\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
-    http://127.0.0.1:8500/v1/connect/intentions
-
-kubectl exec hc-consul-consul-server-0 -- curl \
-    --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"openldap-api\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
-    http://127.0.0.1:8500/v1/connect/intentions
-
-kubectl exec hc-consul-consul-server-0 -- curl \
-    --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"order-api\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
-    http://127.0.0.1:8500/v1/connect/intentions
-
-kubectl exec hc-consul-consul-server-0 -- curl \
-    --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"product-api\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
-    http://127.0.0.1:8500/v1/connect/intentions
-
-kubectl exec hc-consul-consul-server-0 -- curl \
-    --request POST \
-    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"vault\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
+    --data "{ \"SourceName\": \"*\", \"DestinationName\": \"*\", \"SourceType\": \"consul\", \"Action\": \"deny\" }" \
     http://127.0.0.1:8500/v1/connect/intentions
 
 kubectl exec hc-consul-consul-server-0 -- curl \
@@ -107,3 +77,43 @@ kubectl exec hc-consul-consul-server-0 -- curl \
     --request POST \
     --data "{ \"SourceName\": \"auth-api\", \"DestinationName\": \"vault\", \"SourceType\": \"consul\", \"Action\": \"allow\" }" \
     http://127.0.0.1:8500/v1/connect/intentions
+
+# Terminating gateways
+
+# Ingress gateways
+
+kubectl exec hc-consul-consul-server-0 -- curl \
+    --request PUT \
+    --data "{ \"Datacenter\": \"$AWS_REGION\", \"Node\": \"$CONSUL_NODE_ID\", \"Address\":\"$MYSQL_HOST\", \"Service\": { \"ID\": \"customer-db\", \"Service\": \"customer-db\", \"Address\": \"$MYSQL_HOST\", \"Port\": 3306 } }" \
+    http://127.0.0.1:8500/v1/catalog/register
+
+sudo bash -c "cat >/root/i-gtw-frontend.hcl" <<EOT
+Kind = "ingress-gateway"
+Name = "front-end-service"
+
+TLS {
+  Enabled = true
+}
+
+Listeners = [
+  {
+    Port = 80
+    Protocol = "http"
+    Services = [
+      {
+        Name = "front-end"
+      }
+    ]
+  }
+]
+EOT
+
+sudo bash -c cat >/root/t-gtw-mysql.hcl <<EOT
+Kind = "terminating-gateway"
+Name = "customer-db-service"
+Services = [
+    {
+        Name = "customer-db"
+    }
+]
+EOT

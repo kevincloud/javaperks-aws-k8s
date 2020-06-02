@@ -6,7 +6,7 @@ git clone https://github.com/hashicorp/consul-helm.git
 sudo bash -c "cat >/root/helm-consul-values.yaml" <<EOT
 # helm-consul-values.yaml
 global:
-  image: "hashicorp/consul-enterprise:1.8.0-ent-beta1"
+  image: "hashicorp/consul-enterprise:1.8.0-ent-beta2"
   datacenter: $AWS_REGION
   # acls:
   #   manageSystemACLs: true
