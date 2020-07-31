@@ -8,6 +8,11 @@ variable "aws_secret_key" {
     description = "AWS Secret Key"
 }
 
+variable "aws_session_token" {
+    type = string
+    description = "AWS Session Token"
+}
+
 variable "aws_region" {
     type = string
     description = "AWS Region"
@@ -108,4 +113,16 @@ variable "zoneid" {
     type = string
     description = "Zone ID for Route 53"
     default = ""
+}
+
+variable "consul_helm" {
+    type = string
+    description = "Helm chart to use to install Consul"
+    default = "consul"
+}
+
+variable "vault_helm" {
+    type = string
+    description = "Helm chart to use to install Vault"
+    default = "vault"
 }

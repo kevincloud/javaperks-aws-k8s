@@ -25,6 +25,8 @@ resource "aws_instance" "jp-k8s-master" {
         LDAP_ADMIN_PASS = var.ldap_pass
         VAULT_DL_URL = var.vault_dl_url
         ZONE_ID = var.zoneid
+        CONSUL_HELM = var.consul_helm
+        VAULT_HELM = var.vault_helm
     })
 
     tags = {
