@@ -64,11 +64,6 @@ variable "consul_license_key" {
     description = "License key for Consul Enterprise"
 }
 
-variable "consul_token" {
-    type = string
-    description = "ACL token for creating policies in Consul"
-}
-
 variable "vault_license_key" {
     type = string
     description = "License key for Vault Enterprise"

@@ -237,8 +237,6 @@ chmod +x /root/patchnodes.sh
 /root/patchnodes.sh
 
 # create config map for env values
-export CONSUL_TOKEN=$(uuidgen)
-
 kubectl create configmap env-values \
     --from-literal=mysql-host="${MYSQL_HOST}" \
     --from-literal=mysql-user="${MYSQL_USER}" \
@@ -257,7 +255,6 @@ kubectl create secret generic env-secret-values \
     --from-literal=aws-kms-key-id="${AWS_KMS_KEY_ID}" \
     --from-literal=vault-license="${VAULT_LICENSE}" \
     --from-literal=consul-license="${CONSUL_LICENSE}" \
-    --from-literal=consul-token="${CONSUL_TOKEN}" \
     --from-literal=ldap-admin-pass="${LDAP_ADMIN_PASS}" \
 
 

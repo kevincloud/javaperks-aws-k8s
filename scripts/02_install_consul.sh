@@ -8,11 +8,8 @@ sudo bash -c "cat >/root/helm-consul-values.yaml" <<EOT
 global:
   image: "hashicorp/consul-enterprise:1.8.0-ent-beta2"
   datacenter: $AWS_REGION
-  # acls:
-  #   manageSystemACLs: true
-  #   bootstrapToken:
-  #     secretName: env-secret-values
-  #     secretKey: consul-token
+  acls:
+    manageSystemACLs: true
 
 server:
   replicas: 3
