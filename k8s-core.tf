@@ -1,13 +1,13 @@
 data "aws_iam_policy_document" "jp-k8s-assume-role" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+    statement {
+        effect  = "Allow"
+        actions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+        principals {
+            type        = "Service"
+            identifiers = ["ec2.amazonaws.com"]
+        }
     }
-  }
 }
 
 data "aws_iam_policy_document" "jp-k8s-main-access-doc-data" {
@@ -79,26 +79,33 @@ resource "aws_iam_policy" "jp-k8s-main-inst-doc" {
 }
 
 resource "aws_iam_role" "jp-k8s-main-access-role" {
-  name               = "jp-k8s-access-role-${var.unit_prefix}"
-  assume_role_policy = data.aws_iam_policy_document.jp-k8s-assume-role.json
+    name               = "jp-k8s-access-role-${var.unit_prefix}"
+    assume_role_policy = data.aws_iam_policy_document.jp-k8s-assume-role.json
+
+    tags = {
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
+    }
 }
 
 resource "aws_iam_role_policy_attachment" "jp-k8s-main-access-policy-1" {
-  role   = aws_iam_role.jp-k8s-main-access-role.id
-  policy_arn = aws_iam_policy.jp-k8s-main-access-doc.arn
+    role   = aws_iam_role.jp-k8s-main-access-role.id
+    policy_arn = aws_iam_policy.jp-k8s-main-access-doc.arn
 }
 
 resource "aws_iam_role_policy_attachment" "jp-k8s-main-access-policy-2" {
-  role   = aws_iam_role.jp-k8s-main-access-role.id
-  policy_arn = aws_iam_policy.jp-k8s-main-tag-doc.arn
+    role   = aws_iam_role.jp-k8s-main-access-role.id
+    policy_arn = aws_iam_policy.jp-k8s-main-tag-doc.arn
 }
 
 resource "aws_iam_role_policy_attachment" "jp-k8s-main-access-policy-3" {
-  role   = aws_iam_role.jp-k8s-main-access-role.id
-  policy_arn = aws_iam_policy.jp-k8s-main-inst-doc.arn
+    role   = aws_iam_role.jp-k8s-main-access-role.id
+    policy_arn = aws_iam_policy.jp-k8s-main-inst-doc.arn
 }
 
 resource "aws_iam_instance_profile" "jp-k8s-main-profile" {
-  name = "jp-k8s-access-profile-${var.unit_prefix}"
-  role = aws_iam_role.jp-k8s-main-access-role.name
+    name = "jp-k8s-access-profile-${var.unit_prefix}"
+    role = aws_iam_role.jp-k8s-main-access-role.name
 }
