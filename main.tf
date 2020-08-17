@@ -12,6 +12,10 @@ resource "aws_vpc" "primary-vpc" {
     tags = {
         Name = "jp-k8s-vpc-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -21,6 +25,10 @@ resource "aws_internet_gateway" "igw" {
     tags = {
         Name = "jp-k8s-igw-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -35,6 +43,10 @@ resource "aws_subnet" "public-subnet" {
     tags = {
         Name = "jp-k8s-public-subnet-${count.index+1}-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -47,6 +59,10 @@ resource "aws_subnet" "private-subnet" {
     tags = {
         Name = "jp-k8s-private-subnet-${count.index}-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -62,6 +78,10 @@ resource "aws_eip" "nat-ip" {
     tags = {
         Name = "jp-k8s-eip-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -73,6 +93,10 @@ resource "aws_nat_gateway" "natgw" {
     tags = {
         Name = "jp-k8s-natgw-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -86,6 +110,10 @@ resource "aws_route_table" "natgw-route" {
     tags = {
         Name = "jp-k8s-natgw-route-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -99,6 +127,10 @@ resource "aws_route_table" "igw-route" {
     tags = {
         Name = "jp-k8s-igw-route-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 

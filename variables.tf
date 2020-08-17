@@ -98,11 +98,6 @@ variable "num_worker_nodes" {
     # }
 }
 
-variable "owner_email" {
-    type = string
-    description = "Your email address"
-}
-
 variable "vault_dl_url" {
     type = string
     description = "The URL to download Vault from"
@@ -125,4 +120,20 @@ variable "vault_helm" {
     type = string
     description = "Helm chart to use to install Vault"
     default = "vault"
+}
+
+variable "owner" {
+    description = ""
+}
+
+variable "hc_region" {
+    description = ""
+}
+
+variable "purpose" {
+    description = ""
+}
+
+variable "ttl" {
+    description = ""
 }

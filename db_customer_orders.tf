@@ -25,7 +25,10 @@ resource "aws_dynamodb_table" "customer-order-table" {
 
     tags = {
         Name = "jp-k8s-customer-orders-${var.unit_prefix}"
-        owner = var.owner_email
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }

@@ -3,8 +3,11 @@ resource "aws_db_subnet_group" "dbsubnets" {
     subnet_ids = aws_subnet.private-subnet.*.id
 
     tags = {
-        owner = var.owner_email
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -24,8 +27,11 @@ resource "aws_db_instance" "jp-k8s-mysql" {
     skip_final_snapshot = true
 
     tags = {
-        owner = var.owner_email
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -35,8 +41,11 @@ resource "aws_security_group" "jp-k8s-mysql-sg" {
     vpc_id = aws_vpc.primary-vpc.id
 
     tags = {
-        owner = var.owner_email
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 
     ingress {

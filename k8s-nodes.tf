@@ -13,9 +13,11 @@ resource "aws_instance" "jp-k8s-worker" {
 
     tags = {
         Name = "jp-k8s-worker-${var.unit_prefix}-${count.index + 1}"
-        # TTL = "-1"
-        owner = var.owner_email
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 }
 
@@ -25,6 +27,10 @@ resource "aws_security_group" "jp-k8s-worker-sg" {
     vpc_id = aws_vpc.primary-vpc.id
     tags = {
         "kubernetes.io/cluster/javaperks" = "owned"
+        Owner = var.owner
+        Region = var.hc_region
+        Purpose = var.purpose
+        TTL = var.ttl
     }
 
     ingress {
