@@ -166,5 +166,3 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 /root/javaperks-aws-k8s/scripts/08_dns_records.sh
 
 echo "All Done!!!"
-
-#

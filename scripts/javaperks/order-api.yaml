@@ -33,6 +33,11 @@ spec:
               secretKeyRef:
                 name: env-secret-values
                 key: aws-secret-key
+          - name: AWS_SESSION_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: env-secret-values
+                key: aws-session-token
           - name: AWS_REGION
             valueFrom:
               configMapKeyRef:
