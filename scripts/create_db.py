@@ -3,15 +3,16 @@ import sys
 import hvac
 import base64
 
-dbname = sys.argv[1]
+hostname = sys.argv[1]
 username = sys.argv[2]
 password = sys.argv[3]
-roottoken = sys.argv[4]
-region = sys.argv[5]
-vaulturl = sys.argv[6]
+dbname = sys.argv[4]
+roottoken = sys.argv[5]
+region = sys.argv[6]
+vaulturl = sys.argv[7]
 vault = hvac.Client(url="http://"+vaulturl+":8200", token=roottoken)
 
-db = MySQLdb.connect(host = dbname,
+db = MySQLdb.connect(host = hostname,
                      user = username,
                      password = password)
 
@@ -33,10 +34,10 @@ def encrypt_cc(data):
     )
     return retval['data']['ciphertext']
 
-sql = "create database if not exists javaperks"
+sql = "create database if not exists " + dbname
 x = cursor.execute(sql)
 
-sql = "use javaperks"
+sql = "use " + dbname
 x = cursor.execute(sql)
 
 sql = """create table if not exists customer_main(

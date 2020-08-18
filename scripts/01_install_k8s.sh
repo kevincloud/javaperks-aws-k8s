@@ -125,6 +125,11 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> /root/.profile
 alias k=kubectl
 echo "alias k=kubectl" >> /root/.profile
+sudo bash -c "cat >>/root/.profile" <<EOT
+krun() {
+        kubectl exec -it $1 -- /bin/bash
+}
+EOT
 
 # add in CNI, storage class, and controller
 mkdir -p /etc/cni/net.d

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: cart-api
-        image: "jubican/javaperks-cart-api:1.1.1"
+        image: "jubican/javaperks-cart-api:1.1.2"
         imagePullPolicy: Always
         ports:
         - containerPort: 5823

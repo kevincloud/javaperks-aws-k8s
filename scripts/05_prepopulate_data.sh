@@ -3,7 +3,7 @@
 VAULT_ADDRESS=$(kubectl get service hc-vault-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 # Create mysql database
 echo "Creating database..."
-python3 /root/javaperks-aws-k8s/scripts/create_db.py $MYSQL_HOST $MYSQL_USER $MYSQL_PASS $VAULT_TOKEN $AWS_REGION $VAULT_ADDRESS
+python3 /root/javaperks-aws-k8s/scripts/create_db.py $MYSQL_HOST $MYSQL_USER $MYSQL_PASS $MYSQL_DB $VAULT_TOKEN $AWS_REGION $VAULT_ADDRESS
 
 # load product data
 echo "Loading product data..."

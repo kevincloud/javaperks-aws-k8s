@@ -14,11 +14,12 @@ spec:
       labels:
         app: product-api
       annotations:
-        "consul.hashicorp.com/service-name": "product-api"
+        "consul.hashicorp.com/connect-inject": "true"
+        "consul.hashicorp.com/connect-service": "product-api"
     spec:
       containers:
       - name: product-api
-        image: "jubican/javaperks-product-api:1.1.5"
+        image: "jubican/javaperks-product-api:1.1.6"
         imagePullPolicy: Always
         ports:
         - containerPort: 5821
