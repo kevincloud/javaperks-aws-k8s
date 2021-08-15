@@ -5,8 +5,6 @@
 ########################
 
 BEARER_TOKEN="YOUR_TFE_API_TOKEN"
-AWS_ACCESS_KEY="YOUR_AWS_ACCESS_KEY_ID"
-AWS_SECRET_KEY="YOUR_SECRET_KEY_ID"
 AWS_REGION="us-east-1"
 AWS_AZS='[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\"]'
 AWS_KMS_KEY_ID="XXX"
@@ -40,20 +38,6 @@ WORKSPACE_ID=$(curl -s \
     https://app.terraform.io/api/v2/organizations/${ORG_NAME}/workspaces/${WORKSPACE_NAME} | jq -r .data.id)
 
 # Create all variables for the specified workspace
-
-curl -s \
-    --header "Authorization: Bearer ${BEARER_TOKEN}" \
-    --header "Content-Type: application/vnd.api+json" \
-    --request POST \
-    --data '{ "data": { "type": "vars", "attributes": { "key": "aws_access_key", "value": "'${AWS_ACCESS_KEY}'", "description": "", "category": "terraform", "hcl": false, "sensitive": false } } }' \
-    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
-
-curl -s \
-    --header "Authorization: Bearer ${BEARER_TOKEN}" \
-    --header "Content-Type: application/vnd.api+json" \
-    --request POST \
-    --data '{ "data": { "type": "vars", "attributes": { "key": "aws_secret_key", "value": "'${AWS_SECRET_KEY}'", "description": "", "category": "terraform", "hcl": false, "sensitive": true } } }' \
-    https://app.terraform.io/api/v2/workspaces/${WORKSPACE_ID}/vars
 
 curl -s \
     --header "Authorization: Bearer ${BEARER_TOKEN}" \

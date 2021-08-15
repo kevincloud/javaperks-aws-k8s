@@ -1,6 +1,3 @@
-aws_access_key = "XXXX"
-aws_secret_key = "XXXX"
-aws_session_token = "XXXX"
 aws_region = "us-east-1"
 aws_azs = ["us-east-1a", "us-east-1b", "us-east-1c"]
 aws_kms_key_id = "XXXX"

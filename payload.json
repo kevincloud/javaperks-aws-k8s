@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "type":"vars",
+      "attributes": {
+        "key":"key1",
+        "value":"some_value",
+        "description":"some description",
+        "category":"terraform",
+        "hcl":false,
+        "sensitive":false
+      }
+    },
+    {
+      "type":"vars",
+      "attributes": {
+        "key":"key2",
+        "value":"some_value",
+        "description":"some description",
+        "category":"terraform",
+        "hcl":false,
+        "sensitive":false
+      }
+    }
+  ]
+}

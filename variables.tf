@@ -1,18 +1,3 @@
-variable "aws_access_key" {
-    type = string
-    description = "AWS Access Key"
-}
-
-variable "aws_secret_key" {
-    type = string
-    description = "AWS Secret Key"
-}
-
-variable "aws_session_token" {
-    type = string
-    description = "AWS Session Token"
-}
-
 variable "aws_region" {
     type = string
     description = "AWS Region"
@@ -126,7 +111,7 @@ variable "owner" {
     description = ""
 }
 
-variable "hc_region" {
+variable "se-region" {
     description = ""
 }
 
@@ -135,5 +120,9 @@ variable "purpose" {
 }
 
 variable "ttl" {
+    description = ""
+}
+
+variable "terraform" {
     description = ""
 }

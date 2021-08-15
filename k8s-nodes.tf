@@ -14,10 +14,11 @@ resource "aws_instance" "jp-k8s-worker" {
     tags = {
         Name = "jp-k8s-worker-${var.unit_prefix}-${count.index + 1}"
         "kubernetes.io/cluster/javaperks" = "owned"
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 }
 
@@ -27,10 +28,11 @@ resource "aws_security_group" "jp-k8s-worker-sg" {
     vpc_id = aws_vpc.primary-vpc.id
     tags = {
         "kubernetes.io/cluster/javaperks" = "owned"
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 
     ingress {

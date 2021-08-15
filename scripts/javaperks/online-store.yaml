@@ -25,21 +25,6 @@ spec:
         ports:
         - containerPort: 5826
         env:
-          - name: AWS_ACCESS_KEY
-            valueFrom:
-              configMapKeyRef:
-                name: env-values
-                key: aws-access-key
-          - name: AWS_SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: env-secret-values
-                key: aws-secret-key
-          - name: AWS_SESSION_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: env-secret-values
-                key: aws-session-token
           - name: AWS_REGION
             valueFrom:
               configMapKeyRef:

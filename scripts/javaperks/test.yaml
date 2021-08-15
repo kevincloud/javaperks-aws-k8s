@@ -8,16 +8,6 @@ spec:
     image: "ubuntu:latest"
     command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
     env:
-      - name: AWS_ACCESS_KEY
-        valueFrom:
-          configMapKeyRef:
-            name: env-values
-            key: aws-access-key
-      - name: AWS_SECRET_KEY
-        valueFrom:
-          secretKeyRef:
-            name: env-secret-values
-            key: aws-secret-key
       - name: AWS_REGION
         valueFrom:
           configMapKeyRef:

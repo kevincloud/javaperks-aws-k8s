@@ -6,8 +6,6 @@ Java Perks is a ficticious wholesale company who sells equipment and supplies to
 
 To get started with this demo, copy the terraform.tfvars.example and fill in with your own information. The variables are as follows:
 
-* `aws_access_key`: Your AWS IAM access key. This account should be able to provision any AWS resource
-* `aws_secret_key`: The secret id key paired with the access key
 * `aws_region`: Region to deploy the demo to. Defaults to `us-east-1`
 * `aws_azs`: Availability zones to use for the worker nodes. Defaults to 3
 * `aws_kms_key_id`: A KMS key is needed for Vault's auto unseal. You'll need to provide a KMS key in the specified region

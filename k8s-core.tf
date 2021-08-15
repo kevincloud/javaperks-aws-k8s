@@ -83,10 +83,11 @@ resource "aws_iam_role" "jp-k8s-main-access-role" {
     assume_role_policy = data.aws_iam_policy_document.jp-k8s-assume-role.json
 
     tags = {
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 }
 

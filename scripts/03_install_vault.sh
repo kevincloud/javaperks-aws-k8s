@@ -267,13 +267,6 @@ curl -s \
     $VAULT_ADDR/v1/auth/kubernetes/role/cust-api
 
 # Additional configs
-echo "Add AWS Credentials"
-curl -s \
-    --header "X-Vault-Token: $VAULT_TOKEN" \
-    --request POST \
-    --data "{\"data\": { \"aws_access_key\": \"$AWS_ACCESS_KEY\", \"aws_secret_key\": \"$AWS_SECRET_KEY\", \"aws_region\": \"$AWS_REGION\" } }" \
-    $VAULT_ADDR/v1/secret/data/aws
-
 echo "Add root token"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \

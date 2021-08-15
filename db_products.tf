@@ -19,9 +19,10 @@ resource "aws_dynamodb_table" "product-data-table" {
     tags = {
         Name = "jp-k8s-product-main-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 }

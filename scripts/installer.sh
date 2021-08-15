@@ -70,28 +70,11 @@ pip3 install mysqlclient
 pip3 install awscli
 pip3 install hvac
 
-mkdir -p /root/.aws
-sudo bash -c "cat >/root/.aws/config" <<EOT
-[default]
-aws_access_key_id=${AWS_ACCESS_KEY}
-aws_secret_access_key=${AWS_SECRET_KEY}
-aws_session_token=${AWS_SESSION_TOKEN}
-EOT
-sudo bash -c "cat >/root/.aws/credentials" <<EOT
-[default]
-aws_access_key_id=${AWS_ACCESS_KEY}
-aws_secret_access_key=${AWS_SECRET_KEY}
-aws_session_token=${AWS_SESSION_TOKEN}
-EOT
-
 echo "...setting environment variables"
 export MYSQL_HOST="${MYSQL_HOST}"
 export MYSQL_USER="${MYSQL_USER}"
 export MYSQL_PASS="${MYSQL_PASS}"
 export MYSQL_DB="${MYSQL_DB}"
-export AWS_ACCESS_KEY="${AWS_ACCESS_KEY}"
-export AWS_SECRET_KEY="${AWS_SECRET_KEY}"
-export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"
 export AWS_KMS_KEY_ID="${AWS_KMS_KEY_ID}"
 export AWS_REGION="${REGION}"
 export S3_BUCKET="${S3_BUCKET}"

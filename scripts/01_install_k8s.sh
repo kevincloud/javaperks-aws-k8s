@@ -246,7 +246,6 @@ kubectl create configmap env-values \
     --from-literal=mysql-host="${MYSQL_HOST}" \
     --from-literal=mysql-user="${MYSQL_USER}" \
     --from-literal=mysql-db="${MYSQL_DB}" \
-    --from-literal=aws-access-key="${AWS_ACCESS_KEY}" \
     --from-literal=aws-region="${AWS_REGION}" \
     --from-literal=s3-bucket="${S3_BUCKET}" \
     --from-literal=table-product="${TABLE_PRODUCT}" \
@@ -256,8 +255,6 @@ kubectl create configmap env-values \
 
 kubectl create secret generic env-secret-values \
     --from-literal=mysql-pass="${MYSQL_PASS}" \
-    --from-literal=aws-secret-key="${AWS_SECRET_KEY}" \
-    --from-literal=aws-session-token="${AWS_SESSION_TOKEN}" \
     --from-literal=aws-kms-key-id="${AWS_KMS_KEY_ID}" \
     --from-literal=vault-license="${VAULT_LICENSE}" \
     --from-literal=consul-license="${CONSUL_LICENSE}" \

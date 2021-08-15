@@ -27,9 +27,10 @@ resource "aws_dynamodb_table" "customer-cart" {
     tags = {
         Name = "jp-k8s-customer-cart-${var.unit_prefix}"
         "kubernetes.io/cluster/javaperks" = "owned"
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 }

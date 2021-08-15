@@ -4,10 +4,11 @@ resource "aws_db_subnet_group" "dbsubnets" {
 
     tags = {
         "kubernetes.io/cluster/javaperks" = "owned"
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 }
 
@@ -28,10 +29,11 @@ resource "aws_db_instance" "jp-k8s-mysql" {
 
     tags = {
         "kubernetes.io/cluster/javaperks" = "owned"
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 }
 
@@ -42,10 +44,11 @@ resource "aws_security_group" "jp-k8s-mysql-sg" {
 
     tags = {
         "kubernetes.io/cluster/javaperks" = "owned"
-        Owner = var.owner
-        Region = var.hc_region
-        Purpose = var.purpose
-        TTL = var.ttl
+        owner = var.owner
+        se-region = var.se-region
+        purpose = var.purpose
+        ttl = var.ttl
+        terraform = var.terraform
     }
 
     ingress {
