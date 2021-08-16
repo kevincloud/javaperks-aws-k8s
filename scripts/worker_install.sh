@@ -77,5 +77,3 @@ chmod +x /root/ready.sh
 touch /etc/default/kubelet
 echo 'KUBELET_EXTRA_ARGS="--cloud-provider=aws"' >> /etc/default/kubelet
 service kubelet restart
-
-#
