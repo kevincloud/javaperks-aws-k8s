@@ -79,7 +79,8 @@ echo "export VAULT_ADDR=http://localhost:8200" >> /root/.profile
 echo "export VAULT_TOKEN=$VAULT_TOKEN" >> /root/.profile
 
 echo "Configuring Vault..."
-
+echo "Root Token: $VAULT_TOKEN"
+echo "Vault Address: $VAULT_ADDRESS"
 # # Enable auditing
 # curl -s \
 #     --header "X-Vault-Token: $VAULT_TOKEN" \
