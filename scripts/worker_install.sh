@@ -6,12 +6,10 @@ echo "Pre-installation tasks..."
 # Install OS updates
 # 
 echo 'libc6 libraries/restart-without-asking boolean true' | sudo debconf-set-selections
-# sudo apt-get remove -y grub
-# sudo apt-get install -y grub
 export DEBIAN_FRONTEND=noninteractive
 echo "...installing Ubuntu updates"
 sudo apt-get -y update
-# sudo apt-get -y upgrade
+
 sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \

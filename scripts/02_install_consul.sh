@@ -25,8 +25,8 @@ ui:
   service:
     type: 'LoadBalancer'
 
-# syncCatalog:
-#   enabled: true
+syncCatalog:
+  enabled: true
 EOT
 
 helm install -f helm-consul-values.yaml hc-consul ./consul-helm
