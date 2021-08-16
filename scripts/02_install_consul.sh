@@ -2,11 +2,11 @@
 
 # Install Consul
 cd /root
-git clone https://github.com/hashicorp/consul-helm.git
 sudo bash -c "cat >/root/helm-consul-values.yaml" <<EOT
 # helm-consul-values.yaml
 global:
   image: "hashicorp/${CONSUL_HELM}"
+  imageK8S: "hashicorp/consul-k8s"
   datacenter: $AWS_REGION
   # acls:
   #   manageSystemACLs: true
@@ -29,7 +29,7 @@ syncCatalog:
   enabled: true
 EOT
 
-helm install -f helm-consul-values.yaml hc-consul ./consul-helm
+helm install -f helm-consul-values.yaml hc-consul hashicorp/consul
 
 sleep 2
 

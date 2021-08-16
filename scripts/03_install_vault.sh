@@ -2,7 +2,6 @@
 
 # Install Vault
 cd /root
-git clone https://github.com/hashicorp/vault-helm.git
 sudo bash -c "cat >/root/helm-vault-values.yaml" <<EOT
 # helm-vault-values.yaml
 server:
@@ -36,7 +35,7 @@ ui:
 EOT
 
 echo "Initializing Vault (this can take several minutes)..."
-helm install -f helm-vault-values.yaml hc-vault ./vault-helm
+helm install -f helm-vault-values.yaml hc-vault hashicorp/vault
 
 sleep 5
 
