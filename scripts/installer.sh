@@ -113,39 +113,39 @@ cd /root/javaperks-aws-k8s/
 
 # Configure Kubernetes
 
-# . /root/javaperks-aws-k8s/scripts/01_install_k8s.sh
+. /root/javaperks-aws-k8s/scripts/01_install_k8s.sh
 
-# # Set variables
+# Set variables
 
-# export KUBEJOIN="$(cat /root/kubeadm-join.txt | sed -e ':a;N;$!ba;s/ \\\n    / /g')"
-# export KUBECONFIG=/etc/kubernetes/admin.conf
+export KUBEJOIN="$(cat /root/kubeadm-join.txt | sed -e ':a;N;$!ba;s/ \\\n    / /g')"
+export KUBECONFIG=/etc/kubernetes/admin.conf
 
-# # Configure the Consul server
+# Configure the Consul server
 
-# . /root/javaperks-aws-k8s/scripts/02_install_consul.sh
+. /root/javaperks-aws-k8s/scripts/02_install_consul.sh
 
-# # Install the Vault server
+# Install the Vault server
 
-# . /root/javaperks-aws-k8s/scripts/03_install_vault.sh
+. /root/javaperks-aws-k8s/scripts/03_install_vault.sh
 
-# # Install and configure Ambassador
+# Install and configure Ambassador
 
-# /root/javaperks-aws-k8s/scripts/04_install_ambassador.sh
+/root/javaperks-aws-k8s/scripts/04_install_ambassador.sh
 
-# # Initial data load
+# Initial data load
 
-# /root/javaperks-aws-k8s/scripts/05_prepopulate_data.sh
+/root/javaperks-aws-k8s/scripts/05_prepopulate_data.sh
 
-# # Launch JavaPerks
+# Launch JavaPerks
 
-# /root/javaperks-aws-k8s/scripts/06_launch_javaperks.sh
+/root/javaperks-aws-k8s/scripts/06_launch_javaperks.sh
 
-# # Final data load
+# Final data load
 
-# /root/javaperks-aws-k8s/scripts/07_postpopulate_data.sh
+/root/javaperks-aws-k8s/scripts/07_postpopulate_data.sh
 
-# # Create DNS records
+# Create DNS records
 
-# /root/javaperks-aws-k8s/scripts/08_dns_records.sh
+/root/javaperks-aws-k8s/scripts/08_dns_records.sh
 
 echo "All Done!!!"

@@ -14,12 +14,9 @@ global:
 server:
   replicas: 3
   bootstrapExpect: 3
-  enterpriseLicense:
-    secretName: env-secret-values
-    secretKey: consul-license
-  disruptionBudget:
-    enabled: true
-    maxUnavailable: 0
+  # enterpriseLicense:
+  #   secretName: env-secret-values
+  #   secretKey: consul-license
 
 client:
   enabled: true
@@ -28,19 +25,8 @@ ui:
   service:
     type: 'LoadBalancer'
 
-syncCatalog:
-  enabled: true
-
-connectInject:
-  enabled: true
-  default: true
-  centralConfig:
-    enabled: true
-    defaultProtocol: 'http'
-  #   proxyDefaults: |
-  #     {
-  #       "envoy_dogstatsd_url": "udp://127.0.0.1:9125"
-  #     }
+# syncCatalog:
+#   enabled: true
 EOT
 
 helm install -f helm-consul-values.yaml hc-consul ./consul-helm
@@ -64,7 +50,7 @@ kubectl exec hc-consul-consul-server-0 -- curl \
     http://127.0.0.1:8500/v1/catalog/register
 
 # Enable Consul DNS resolution
-COREDNS_IP=$(kubectl get svc hc-consul-consul-dns -o jsonpath='{.spec.clusterIP}')
+export COREDNS_IP=$(kubectl get svc hc-consul-consul-dns -o jsonpath='{.spec.clusterIP}')
 kubectl get configmap coredns -n kube-system -o jsonpath='{.data.Corefile}' > /root/dns-settings.txt
 sudo bash -c "cat >>/root/dns-settings.txt" <<EOT
 consul {
