@@ -310,6 +310,7 @@ curl -s \
 export VAULT_ADDR="http://$(kubectl get service hc-vault-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'):8200"
 
 curl -sfLo "/root/vault.zip" "${VAULT_DL_URL}"
+sleep 10
 unzip /root/vault.zip -d /usr/local/bin/
 sleep 3
 rm -rf /root/vault.zip

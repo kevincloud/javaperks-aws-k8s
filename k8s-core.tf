@@ -37,7 +37,9 @@ data "aws_iam_policy_document" "jp-k8s-main-access-doc-data" {
             "ssmmessages:OpenControlChannel",
             "ssmmessages:OpenDataChannel",
             "rds-db:*",
-            "dynamodb:*"
+            "dynamodb:*",
+            "s3:*",
+            "route53:ChangeResourceRecordSets"
          ]
     }
 }
