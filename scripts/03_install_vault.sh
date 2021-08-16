@@ -48,8 +48,8 @@ done
 kubectl exec hc-vault-0 -- /bin/vault operator init -recovery-shares=1 -recovery-threshold=1 -key-shares=1 -key-threshold=1 > /root/vault-init.txt 2>/root/verr.txt
 while [[ -z $(cat /root/vault-init.txt) ]]; do
     echo "...initializing vault..."
-    sleep 2
-    # kubectl exec hc-vault-0 -- /bin/vault operator init -recovery-shares=1 -recovery-threshold=1 -key-shares=1 -key-threshold=1 > /root/vault-init.txt 2>/root/verr.txt
+    sleep 5
+    kubectl exec hc-vault-0 -- /bin/vault operator init -recovery-shares=1 -recovery-threshold=1 -key-shares=1 -key-threshold=1 > /root/vault-init.txt 2>/root/verr.txt
 done
 
 echo "Vault successfully initialized!"
