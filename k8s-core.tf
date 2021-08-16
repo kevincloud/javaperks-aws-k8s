@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "jp-k8s-main-access-doc-data" {
             "rds-db:*",
             "dynamodb:*",
             "s3:*",
-            "route53:ChangeResourceRecordSets"
+            "route53:*"
          ]
     }
 }

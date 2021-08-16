@@ -88,6 +88,7 @@ export LDAP_ADMIN_USER="cn=admin,dc=javaperks,dc=local"
 export ZONE_ID="${ZONE_ID}"
 export CONSUL_HELM="${CONSUL_HELM}"
 export VAULT_HELM="${VAULT_HELM}"
+export VAULT_DL_URL="${VAULT_DL_URL}"
 export CLIENT_IP=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 export PUBLIC_IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 export AWS_HOSTNAME=`curl -s http://169.254.169.254/latest/meta-data/local-hostname`
