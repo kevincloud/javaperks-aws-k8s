@@ -62,6 +62,12 @@ export VAULT_ADDR="http://$(kubectl get service hc-vault-ui -o=custom-columns=EX
 export CONSUL_HTTP_ADDR=$(kubectl get service hc-consul-consul-ui -o=custom-columns=EXTERNAL-IP:.status.loadBalancer.ingress[0].hostname | sed -n '1d; p')
 export VAULT_ADDRESS="http://$(kubectl get service hc-vault-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'):8200"
 
+echo "Waiting for Vault's LB to come online...(this could take some time)"
+export VLBNAME=$(echo $VAULT_ADDRESS | awk -F"-" '{print $1}')
+while [[ ! -z $(aws elb describe-instance-health --load-balancer-name $VLBNAME --region=us-east-1 | jq -r .InstanceStates[].State | sed -n '/InService/ !p') ]]; do
+    sleep 3
+done
+
 sleep 10
 
 echo "Extracting vault root token..."
