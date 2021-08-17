@@ -53,9 +53,9 @@ deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 sudo apt-get update
 sudo apt-get install -y \
-    kubelet=1.19.14-00 \
-    kubeadm=1.19.14-00 \
-    kubectl=1.19.14-00
+    kubelet=1.21.3-00 \
+    kubeadm=1.21.3-00 \
+    kubectl=1.21.3-00
 
 export CLIENT_IP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
 export AWS_HOSTNAME=`curl -s http://169.254.169.254/latest/meta-data/local-hostname`

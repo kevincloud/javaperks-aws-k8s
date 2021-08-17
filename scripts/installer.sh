@@ -40,9 +40,9 @@ sudo apt-get install -y \
     docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
 
 sudo apt-get install -y \
-    kubelet=1.19.14-00 \
-    kubeadm=1.19.14-00 \
-    kubectl=1.19.14-00
+    kubelet=1.21.3-00 \
+    kubeadm=1.21.3-00 \
+    kubectl=1.21.3-00
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
