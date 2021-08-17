@@ -7,7 +7,7 @@ sudo bash -c "cat >/root/helm-consul-values.yaml" <<EOT
 # helm-consul-values.yaml
 global:
   image: "hashicorp/${CONSUL_HELM}"
-  imageK8S: "hashicorp/consul-k8s"
+  # imageK8S: "hashicorp/consul-k8s"
   datacenter: $AWS_REGION
   # acls:
   #   manageSystemACLs: true
