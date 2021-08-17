@@ -267,3 +267,4 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 
 helm repo add hashicorp https://helm.releases.hashicorp.com
+helm repo update
