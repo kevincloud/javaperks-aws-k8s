@@ -52,7 +52,10 @@ cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-get install -y \
+    kubelet=1.19.14-00 \
+    kubeadm=1.19.14-00 \
+    kubectl=1.19.14-00
 
 export CLIENT_IP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
 export AWS_HOSTNAME=`curl -s http://169.254.169.254/latest/meta-data/local-hostname`
@@ -75,4 +78,3 @@ chmod +x /root/ready.sh
 touch /etc/default/kubelet
 echo 'KUBELET_EXTRA_ARGS="--cloud-provider=aws"' >> /etc/default/kubelet
 service kubelet restart
-#
