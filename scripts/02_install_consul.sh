@@ -2,6 +2,7 @@
 
 # Install Consul
 cd /root
+git clone https://github.com/hashicorp/consul-helm.git
 sudo bash -c "cat >/root/helm-consul-values.yaml" <<EOT
 # helm-consul-values.yaml
 global:
@@ -29,7 +30,7 @@ syncCatalog:
   enabled: true
 EOT
 
-helm install -f helm-consul-values.yaml hc-consul hashicorp/consul
+helm install -f helm-consul-values.yaml hc-consul ./consul-helm
 
 sleep 2
 
