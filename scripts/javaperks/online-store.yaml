@@ -40,7 +40,7 @@ spec:
           - name: JPAPI_AUTH_HOST
             value: http://localhost:5825
           - name: JPAPI_PROD_HOST
-            value: http://localhost:5821
+            value: http://product-api:5821
           - name: JPAPI_CUST_HOST
             value: http://localhost:5822
           - name: JPAPI_CART_HOST
