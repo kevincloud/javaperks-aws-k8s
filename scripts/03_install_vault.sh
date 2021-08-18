@@ -265,7 +265,7 @@ echo "Configure Kubernetes auth"
 curl -s \
     --header "X-Vault-Token: $VAULT_TOKEN" \
     --request POST \
-    --data "{ \"kubernetes_host\": \"https://$CLIENT_IP:6443\", \"kubernetes_ca_cert\": \"$SA_CA_CRT\", \"token_reviewer_jwt\": \"$SA_JWT_TOKEN\" }" \
+    --data "{ \"kubernetes_host\": \"https://$CLIENT_IP:6443\", \"issuer\": \"https://kubernetes.default.svc.cluster.local\", \"kubernetes_ca_cert\": \"$SA_CA_CRT\", \"token_reviewer_jwt\": \"$SA_JWT_TOKEN\" }" \
     $VAULT_ADDRESS/v1/auth/kubernetes/config
 
 echo "Create Kubernetes role"

@@ -36,17 +36,17 @@ spec:
                 name: env-values
                 key: s3-bucket
           - name: VAULT_ADDR
-            value: http://localhost:8200
+            value: http://hc-vault:8200
           - name: JPAPI_AUTH_HOST
-            value: http://localhost:5825
+            value: http://auth-api:5825
           - name: JPAPI_PROD_HOST
             value: http://product-api:5821
           - name: JPAPI_CUST_HOST
-            value: http://localhost:5822
+            value: http://customer-api:5822
           - name: JPAPI_CART_HOST
-            value: http://localhost:5823
+            value: http://cart-api:5823
           - name: JPAPI_ORDR_HOST
-            value: http://localhost:5824
+            value: http://order-api:5824
         # livenessProbe:
         #   httpGet:
         #     path: /_health_check

@@ -27,9 +27,9 @@ spec:
         - containerPort: 5822
         env:
           - name: LOCALHOST_ONLY
-            value: "true"
+            value: "false"
           - name: VAULT_ADDR
-            value: "http://localhost:8200"
+            value: "http://hc-vault:8200"
         # livenessProbe:
         #   httpGet:
         #     path: /_health_check

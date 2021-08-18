@@ -14,7 +14,7 @@ spec:
       labels:
         app: auth-api
       annotations:
-        "consul.hashicorp.com/service-name": "auth-api"
+        # "consul.hashicorp.com/service-name": "auth-api"
         "consul.hashicorp.com/connect-service-upstreams": "vault:8200,openldap:389"
     spec:
       serviceAccountName: vault-auth
@@ -26,9 +26,9 @@ spec:
         - containerPort: 5825
         env:
           - name: LOCALHOST_ONLY
-            value: "true"
+            value: "false"
           - name: VAULT_ADDR
-            value: "http://localhost:8200"
+            value: "http://hc-vault:8200"
           - name: LDAP_HOST
             value: "openldap"
           - name: LDAP_ADMIN

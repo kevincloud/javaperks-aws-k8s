@@ -23,7 +23,7 @@ bash -c "cat >/root/zones/javaperks-home.json" <<EOT
                 "Type": "A",
                 "AliasTarget": {
                     "HostedZoneId": "$JAVAPERKS_LB_ZONEID",
-                    "DNSName": "dualstack.$JAVAPERKS_LB_ADDR",
+                    "DNSName": "$JAVAPERKS_LB_ADDR",
                     "EvaluateTargetHealth": false
                 }
             }
@@ -47,7 +47,7 @@ bash -c "cat >/root/zones/javaperks-consul.json" <<EOT
                 "Type": "A",
                 "AliasTarget": {
                     "HostedZoneId": "$CONSUL_LB_ZONEID",
-                    "DNSName": "dualstack.$CONSUL_LB_ADDR",
+                    "DNSName": "$CONSUL_LB_ADDR",
                     "EvaluateTargetHealth": false
                 }
             }
@@ -71,7 +71,7 @@ bash -c "cat >/root/zones/javaperks-vault.json" <<EOT
                 "Type": "A",
                 "AliasTarget": {
                     "HostedZoneId": "$VAULT_LB_ZONEID",
-                    "DNSName": "dualstack.$VAULT_LB_ADDR",
+                    "DNSName": "$VAULT_LB_ADDR",
                     "EvaluateTargetHealth": false
                 }
             }
@@ -95,7 +95,7 @@ bash -c "cat >/root/zones/javaperks-kubedash.json" <<EOT
                 "Type": "A",
                 "AliasTarget": {
                     "HostedZoneId": "$KUBEDASH_LB_ZONEID",
-                    "DNSName": "dualstack.$KUBEDASH_LB_ADDR",
+                    "DNSName": "$KUBEDASH_LB_ADDR",
                     "EvaluateTargetHealth": false
                 }
             }

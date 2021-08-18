@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-api
+  labels:
+    app: customer-api
+  annotations:
+    "consul.hashicorp.com/service-name": "customer-api"
+spec:
+  ports:
+    - port: 5822
+      targetPort: 5822
+      protocol: TCP
+  selector:
+    app: customer-api

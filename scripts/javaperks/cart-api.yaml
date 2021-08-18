@@ -13,8 +13,8 @@ spec:
     metadata:
       labels:
         app: cart-api
-      annotations:
-        "consul.hashicorp.com/service-name": "cart-api"
+      # annotations:
+      #   "consul.hashicorp.com/service-name": "cart-api"
     spec:
       containers:
       - name: cart-api
@@ -24,7 +24,7 @@ spec:
         - containerPort: 5823
         env:
           - name: LOCALHOST_ONLY
-            value: "true"
+            value: "false"
           - name: AWS_REGION
             valueFrom:
               configMapKeyRef:

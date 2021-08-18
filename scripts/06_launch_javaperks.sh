@@ -2,6 +2,7 @@
 
 # Deploy auth-api
 kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/auth-api.yaml
+kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/auth-svc.yaml
 
 # Deploy product-api
 kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/product-api.yaml
@@ -9,12 +10,15 @@ kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/product-svc.yaml
 
 # Deploy customer-api
 kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/customer-api.yaml
+kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/customer-svc.yaml
 
 # Deploy cart-api
 kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/cart-api.yaml
+kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/cart-svc.yaml
 
 # Deploy order-api
 kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/order-api.yaml
+kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/order-svc.yaml
 
 # Deploy store-api
 kubectl apply -f /root/javaperks-aws-k8s/scripts/javaperks/online-store.yaml

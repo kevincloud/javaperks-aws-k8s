@@ -13,19 +13,19 @@ spec:
     metadata:
       labels:
         app: product-api
-      annotations:
-        "consul.hashicorp.com/connect-inject": "true"
-        "consul.hashicorp.com/connect-service": "product-api"
+      # annotations:
+        # "consul.hashicorp.com/connect-inject": "true"
+        # "consul.hashicorp.com/connect-service": "product-api"
     spec:
       containers:
       - name: product-api
-        image: "jubican/javaperks-product-api:1.1.6"
+        image: "jubican/javaperks-product-api:1.1.7"
         imagePullPolicy: Always
         ports:
         - containerPort: 5821
         env:
           - name: LOCALHOST_ONLY
-            value: "true"
+            value: "false"
           - name: AWS_REGION
             valueFrom:
               configMapKeyRef:
